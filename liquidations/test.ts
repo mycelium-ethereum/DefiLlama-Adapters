@@ -4,6 +4,8 @@ import { ethers } from "ethers";
 import { providers } from "./utils/ethers";
 import { humanizeNumber } from "@defillama/sdk/build/computeTVL/humanizeNumber";
 import { TOTAL_BINS, Bins, binResults, Liq } from "./utils/binResults";
+import { config } from "dotenv";
+config();
 
 const f2 = (n: number) => Number(n.toFixed(2));
 
@@ -45,6 +47,13 @@ async function displayDebugInfo(skippedTokens: Set<string>, liqs: Liq[], bins: B
   const skippedTable = await Promise.all(
     Array.from(skippedTokens).map(async (tokenAddress) => {
       const [chain, address] = tokenAddress.split(":");
+      if (chain.toLowerCase() === "solana") {
+        return {
+          symbol: "UNKNOWN",
+          address: tokenAddress,
+        };
+      }
+
       const tokenContract = new ethers.Contract(address, ["function symbol() view returns (string)"], providers[chain]);
       let symbol: string;
       try {

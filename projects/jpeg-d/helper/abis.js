@@ -22,6 +22,18 @@ const VAULT_ABI = [{
     ],
     "stateMutability": "view",
     "type": "function"
+},{
+  "inputs": [],
+  "name": "getFloorETH",
+  "outputs": [
+    {
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }
+  ],
+  "stateMutability": "view",
+  "type": "function"
 }];
 
 const PRICEORACLE_ABI = [{
